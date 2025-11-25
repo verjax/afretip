@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-18T21:40:53.658251Z",
+  "rule": {
+    "id": 18152,
+    "level": 10,
+    "description": "Test log for rmm_03_scheduled_task",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "003",
+    "name": "WIN-LAPTOP01",
+    "ip": "192.168.1.150"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-LAPTOP01"
+    },
+    "eventdata": {
+      "commandLine": "schtasks /create /tn \"RMM Beacon\" /tr \"powershell.exe -WindowStyle Hidden -EncodedCommand SW52b2tlLVdlYlJlcXVlc3QgLVVyaSAiaHR0cDovL2NoZWNraW4ueW91cmxhYi5uZXQvaGVhcnRiZWF0Ig==\" /sc minute /mo 5",
+      "image": "C:\\Windows\\System32\\schtasks.exe",
+      "parentImage": "C:\\ProgramData\\RMMClient\\rmmclient.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for rmm_03_scheduled_task scenario"
+}

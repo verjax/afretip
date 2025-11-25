@@ -1,0 +1,37 @@
+# Core async and web dependencies
+fastapi[standard]==0.115.12
+uvicorn[standard]==0.32.1
+pydantic==2.11.5
+
+# Redis for real-time queuing  
+redis==5.2.1
+
+# Logging and CLI
+structlog==25.4.0
+typer==0.16.0
+rich==14.0.0
+pyyaml==6.0.2
+aiohttp>=3.8.0
+aiofiles==24.1.0
+
+# Data processing
+numpy>=2.0.0,<3.0.0
+pandas>=2.2.0,<3.0.0
+
+# Optional: For future AI integration
+scikit-learn>=1.5.0,<2.0.0
+
+# Optional: For threat intelligence integration
+httpx>=0.28.1
+requests>=2.32.3
+
+# Use paho-mqtt with asyncio wrapper or aiomqtt
+paho-mqtt>=2.1.0
+aiomqtt>=2.3.0
+psutil>=5.9.0
+openpyxl>=3.1.0
+
+psutil>=5.9.0
+
+# For loading environment variables
+python-dotenv==1.0.0

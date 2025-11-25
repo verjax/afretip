@@ -1,0 +1,116 @@
+# Development Configuration - Local Paths
+wazuh:
+  sockets:
+    archives: "/var/ossec/queue/sockets/queue"
+  connection:
+    timeout: 30
+    retry_interval: 5
+    max_retries: 3
+    use_socket: false  # Use file monitoring for dev
+  files:
+    archives: "/var/ossec/logs/archives/archives.json"
+
+# Enhanced Processing Configuration
+processing:
+  confidence_threshold: 0.6
+  novelty_threshold: 0.7
+  batch_size: 100
+  max_queue_size: 10000
+  enable_pattern_detection: true
+  enable_novelty_detection: true
+  enable_hybrid_classification: true
+
+# IOC Extraction Configuration
+extraction:
+  confidence_threshold: 0.3
+  enable_novelty_scoring: true
+  enable_threat_scoring: true
+  enable_context_extraction: true
+  max_context_length: 100
+
+# Data storage - LOCAL PATHS
+storage:
+  files:
+    raw_logs: "./data/raw_logs.jsonl"
+    extracted_iocs: "./data/extracted_iocs.jsonl"
+    suspicious_findings: "./data/suspicious_findings.jsonl"
+    threat_intelligence_db: "./data/threat_intelligence.db"
+
+analytics:
+  enabled: true
+  session_name: "development"
+  output_dir: "./data/analytics"
+  collection:
+    ioc_metrics: true
+    classification_metrics: true
+    detection_metrics: true
+    performance_metrics: true
+    deployment_metrics: true
+  export:
+    auto_export: true
+    format: "csv"
+    retention_days: 90
+
+# Rule deployment - DISABLED for development
+deployment:
+  enabled: false
+  filesystem:
+    rules_dir: "./data/rules"
+    custom_rules_file: "afretip_threat_intel_rules.xml"
+    backup_existing: true
+
+# Logging Configuration - LOCAL PATH
+logging:
+  level: "INFO"
+  file: "./logs/threat_detection.log"
+  format: "json"
+
+# Reputation Services (keep your existing keys)
+reputation_services:
+  virustotal:
+    enabled: true
+    api_key: ""
+    rate_limit_per_minute: 4
+    timeout_seconds: 30
+  abuseipdb:
+    enabled: true
+    api_key: ""
+    rate_limit_per_minute: 100
+    timeout_seconds: 30
+
+# Keep all other sections from your original config...
+threat_intelligence:
+  auto_update_feeds: true
+  update_check_interval_minutes: 30
+  feeds:
+    abuse_ch_malware:
+      enabled: true
+      url: "https://bazaar.abuse.ch/export/txt/sha256/recent/"
+      update_interval_hours: 6
+      confidence: 0.95
+
+hybrid_classification:
+  contextual_suspicion_threshold: 0.8
+  reputation_confirmation_threshold: 0.3
+  combined_confidence_threshold: 0.65
+  enable_reputation_checking: true
+  enable_whitelist_checking: true
+  enable_behavioral_analysis: true
+
+whitelist:
+  enabled: false
+
+rule_generation:
+  minimum_confidence_for_rules: 0.65
+  minimum_iocs_for_batch_rules: 3
+
+monitoring:
+  stats_interval: 30
+
+performance:
+  max_concurrent_classifications: 5
+  max_concurrent_reputation_checks: 2
+
+development:
+  enable_debug_logging: false
+  test_mode: false

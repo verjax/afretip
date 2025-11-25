@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-01-15T14:20:12.456Z",
+  "rule": {
+    "id": 18145,
+    "level": 10,
+    "description": "Windows - Service Installation",
+    "groups": ["windows", "service"]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "7045",
+      "channel": "System",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "serviceName": "RMMClientService",
+      "imagePath": "C:\\ProgramData\\RMMClient\\rmmclient.exe -service",
+      "serviceType": "user mode service",
+      "startType": "auto start",
+      "accountName": "LocalSystem"
+    }
+  },
+  "data": {
+    "service_name": "RMMClientService",
+    "service_bin_path": "C:\\ProgramData\\RMMClient\\rmmclient.exe -service",
+    "service_type": "user mode service"
+  },
+  "location": "EventChannel",
+  "full_log": "2025 Jan 15 14:20:12 WIN-WORKSTATION01 System: INFORMATION(7045): Service Control Manager: A service was installed in the system. Service Name: RMMClientService, Service File Name: C:\\ProgramData\\RMMClient\\rmmclient.exe -service, Service Type: user mode service, Service Start Type: auto start, Service Account: LocalSystem"
+}

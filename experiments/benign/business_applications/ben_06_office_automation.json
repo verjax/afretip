@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-19T17:01:53.658251Z",
+  "rule": {
+    "id": 61603,
+    "level": 3,
+    "description": "Test log for ben_06_office_automation",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "003",
+    "name": "WIN-LAPTOP01",
+    "ip": "192.168.1.150"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-LAPTOP01"
+    },
+    "eventdata": {
+      "commandLine": "excel.exe /automation C:\\reports\\monthly_report.xlsx",
+      "image": "C:\\Program Files\\Microsoft Office\\Office16\\excel.exe",
+      "parentImage": "C:\\Windows\\explorer.exe",
+      "user": "DOMAIN\\user"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for ben_06_office_automation scenario"
+}

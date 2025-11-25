@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-19T07:22:53.658251Z",
+  "rule": {
+    "id": 18152,
+    "level": 10,
+    "description": "Test log for lat_02_wmi_execution",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "commandLine": "wmic /node:192.168.1.50 /user:admin /password:password process call create \"powershell.exe -enc ZABlAGcAZABzAGYAZwA...\"",
+      "image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+      "parentImage": "C:\\Windows\\System32\\cmd.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for lat_02_wmi_execution scenario"
+}

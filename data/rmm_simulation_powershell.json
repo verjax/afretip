@@ -1,0 +1,43 @@
+{
+  "timestamp": "2025-01-15T14:23:45.123Z",
+  "rule": {
+    "id": 61603,
+    "level": 12,
+    "description": "Sysmon - Process Creation",
+    "groups": ["sysmon", "windows"]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "processId": "3456",
+      "processGuid": "{12345678-1234-5678-9abc-123456789012}",
+      "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "commandLine": "powershell.exe -ExecutionPolicy Bypass -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwByAG0AbQAuAHkAbwB1AHIAbABhAGIALgBuAGUAdAAvAGMAaABlAGMAawBpAG4ALgBwAHMAMQAiAA==",
+      "currentDirectory": "C:\\ProgramData\\RMMClient\\",
+      "user": "NT AUTHORITY\\SYSTEM",
+      "parentImage": "C:\\ProgramData\\RMMClient\\rmmclient.exe",
+      "parentProcessId": "2890",
+      "hashes": "MD5=A1B2C3D4E5F6789012345678901234AB,SHA256=1A2B3C4D5E6F7890123456789012345678901234567890123456789012345678"
+    }
+  },
+  "data": {
+    "win": {
+      "eventdata": {
+        "commandLine": "powershell.exe -ExecutionPolicy Bypass -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwByAG0AbQAuAHkAbwB1AHIAbABhAGIALgBuAGUAdAAvAGMAaABlAGMAawBpAG4ALgBwAHMAMQAiAA==",
+        "processName": "powershell.exe",
+        "parentProcessName": "rmmclient.exe"
+      }
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "2025 Jan 15 14:23:45 WIN-WORKSTATION01 Microsoft-Windows-Sysmon/Operational: INFORMATION(1): Microsoft-Windows-Sysmon: Process Creation: ProcessId: 3456, ProcessGuid: {12345678-1234-5678-9abc-123456789012}, Image: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe, CommandLine: powershell.exe -ExecutionPolicy Bypass -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwByAG0AbQAuAHkAbwB1AHIAbABhAGIALgBuAGUAdAAvAGMAaABlAGMAawBpAG4ALgBwAHMAMQAiAA==, CurrentDirectory: C:\\ProgramData\\RMMClient\\, User: NT AUTHORITY\\SYSTEM, ParentImage: C:\\ProgramData\\RMMClient\\rmmclient.exe"
+}

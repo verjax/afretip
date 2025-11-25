@@ -1,0 +1,44 @@
+{
+  "timestamp": "2025-01-15T14:24:01.789Z",
+  "rule": {
+    "id": 61604,
+    "level": 8,
+    "description": "Sysmon - Network Connection",
+    "groups": ["sysmon", "network"]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "3",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "processId": "2890",
+      "processGuid": "{12345678-1234-5678-9abc-123456789012}",
+      "image": "C:\\ProgramData\\RMMClient\\rmmclient.exe",
+      "user": "NT AUTHORITY\\SYSTEM",
+      "protocol": "tcp",
+      "initiated": "true",
+      "sourceIp": "192.168.1.100",
+      "sourcePort": "49234",
+      "destinationIp": "203.0.113.50",
+      "destinationPort": "443",
+      "destinationHostname": "rmm.yourlab.net"
+    }
+  },
+  "data": {
+    "srcip": "192.168.1.100",
+    "srcport": "49234",
+    "dstip": "203.0.113.50",
+    "dstport": "443",
+    "domain": "rmm.yourlab.net",
+    "protocol": "tcp"
+  },
+  "location": "EventChannel",
+  "full_log": "2025 Jan 15 14:24:01 WIN-WORKSTATION01 Microsoft-Windows-Sysmon/Operational: INFORMATION(3): Microsoft-Windows-Sysmon: Network Connection: ProcessId: 2890, Image: C:\\ProgramData\\RMMClient\\rmmclient.exe, User: NT AUTHORITY\\SYSTEM, Protocol: tcp, Initiated: true, SourceIp: 192.168.1.100, SourcePort: 49234, DestinationIp: 203.0.113.50, DestinationPort: 443, DestinationHostname: rmm.yourlab.net"
+}

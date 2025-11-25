@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-19T17:26:53.658251Z",
+  "rule": {
+    "id": 18145,
+    "level": 3,
+    "description": "Test log for ben_11_windows_updates",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "002",
+    "name": "WIN-SERVER01",
+    "ip": "192.168.1.10"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-SERVER01"
+    },
+    "eventdata": {
+      "serviceName": "Windows Update",
+      "imagePath": "C:\\Windows\\System32\\svchost.exe -k netsvcs",
+      "serviceType": "share process",
+      "startType": "manual",
+      "accountName": "LocalSystem"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for ben_11_windows_updates scenario"
+}

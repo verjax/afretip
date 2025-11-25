@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-19T01:20:53.658251Z",
+  "rule": {
+    "id": 18152,
+    "level": 3,
+    "description": "Test log for ben_02_system_maintenance",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "commandLine": "sfc.exe /scannow",
+      "image": "C:\\Windows\\System32\\sfc.exe",
+      "parentImage": "C:\\Windows\\System32\\cmd.exe",
+      "user": "NT AUTHORITY\\SYSTEM"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for ben_02_system_maintenance scenario"
+}

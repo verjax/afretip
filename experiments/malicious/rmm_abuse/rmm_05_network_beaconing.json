@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-08-19T02:59:53.658251Z",
+  "rule": {
+    "id": 61604,
+    "level": 8,
+    "description": "Test log for rmm_05_network_beaconing",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "003",
+    "name": "WIN-LAPTOP01",
+    "ip": "192.168.1.150"
+  },
+  "win": {
+    "system": {
+      "eventID": "3",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-LAPTOP01"
+    },
+    "eventdata": {
+      "image": "C:\\ProgramData\\RMMClient\\rmmclient.exe",
+      "protocol": "tcp",
+      "sourceIp": "192.168.1.100",
+      "sourcePort": "49234",
+      "destinationIp": "185.220.100.250",
+      "destinationPort": "443",
+      "destinationHostname": "rmm.yourlab.net"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for rmm_05_network_beaconing scenario"
+}

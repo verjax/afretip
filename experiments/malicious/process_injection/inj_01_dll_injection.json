@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-19T19:22:53.658251Z",
+  "rule": {
+    "id": 61603,
+    "level": 12,
+    "description": "Test log for inj_01_dll_injection",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "commandLine": "powershell.exe -c \"$proc = Get-Process explorer; [System.Diagnostics.Process]::EnterDebugMode(); [Win32]::VirtualAllocEx($proc.Handle, 0, 0x1000, 0x3000, 0x40)\"",
+      "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "parentImage": "C:\\temp\\injector.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for inj_01_dll_injection scenario"
+}

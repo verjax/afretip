@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-19T03:23:53.658251Z",
+  "rule": {
+    "id": 18145,
+    "level": 10,
+    "description": "Test log for rmm_02_service_persistence",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "7045",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "serviceName": "RMMClientService",
+      "imagePath": "C:\\ProgramData\\RMMClient\\rmmclient.exe -service",
+      "serviceType": "user mode service",
+      "startType": "auto start",
+      "accountName": "LocalSystem"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for rmm_02_service_persistence scenario"
+}

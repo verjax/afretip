@@ -1,0 +1,290 @@
+# AFRETIP Production Configuration with Hybrid IOC Detection
+wazuh:
+  sockets:
+    archives: "/var/ossec/queue/sockets/queue"
+  connection:
+    timeout: 30
+    retry_interval: 5
+    max_retries: 3
+    use_socket: false  # Use file monitoring (more reliable)
+  files:
+    archives: "/var/ossec/logs/archives/archives.json"
+
+# Enhanced Processing Configuration
+processing:
+  confidence_threshold: 0.6
+  novelty_threshold: 0.7
+  batch_size: 100
+  max_queue_size: 10000
+  enable_pattern_detection: true
+  enable_novelty_detection: true
+  enable_hybrid_classification: true
+
+  # NEW: Adaptive detection configuration
+  adaptive_detection_threshold: 0.5    # Threshold for adaptive pattern detection
+  enable_adaptive_detection: true      # Enable adaptive threat detection
+  max_techniques_per_finding: 10       # Maximum techniques to track per finding
+
+  # Enhanced threat scoring
+  technique_scoring:
+    command_execution: 0.25
+    command_obfuscation: 0.4
+    persistence_attempt: 0.3
+    suspicious_persistence_location: 0.2
+    network_activity: 0.2
+    suspicious_network_iocs: 0.25
+    process_injection: 0.4
+    living_off_land: 0.3
+    novel_indicators: 0.3
+
+# IOC Extraction Configuration
+extraction:
+  confidence_threshold: 0.3    # Minimum confidence for IOC extraction
+  enable_novelty_scoring: true  # Enable novelty scoring during extraction
+  enable_threat_scoring: true   # Enable threat scoring during extraction
+  enable_context_extraction: true  # Extract context around IOCs
+  max_context_length: 100       # Maximum context characters
+
+# Hybrid IOC Classification Configuration
+hybrid_classification:
+  # Thresholds for contextual suspicion
+  contextual_suspicion_threshold: 0.8   # High-suspicion threshold for rule generation
+  reputation_confirmation_threshold: 0.3  # Reputation score threshold for confirmation
+  combined_confidence_threshold: 0.65    # Combined confidence for rule generation
+
+  # Feature toggles
+  enable_reputation_checking: true       # Enable external reputation services
+  enable_whitelist_checking: true       # Enable whitelist filtering
+  enable_behavioral_analysis: true      # Enable behavioral context analysis
+
+  # Advanced settings
+  reputation_cache_ttl_hours: 1         # Cache reputation results for 1 hour
+  max_reputation_checks_per_minute: 4   # Rate limiting for API calls
+
+# Threat Intelligence Configuration
+threat_intelligence:
+  # Automatic feed updates
+  auto_update_feeds: true
+  update_check_interval_minutes: 30
+
+  # Feed sources (abuse.ch feeds are free and reliable)
+  feeds:
+    abuse_ch_malware:
+      enabled: true
+      url: "https://bazaar.abuse.ch/export/txt/sha256/recent/"
+      update_interval_hours: 6
+      confidence: 0.95
+
+    abuse_ch_urlhaus:
+      enabled: true
+      url: "https://urlhaus.abuse.ch/downloads/csv_online/"
+      update_interval_hours: 4
+      confidence: 0.90
+
+    feodo_tracker:
+      enabled: true
+      url: "https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt"
+      update_interval_hours: 2
+      confidence: 0.95
+
+    ssl_blacklist:
+      enabled: true
+      url: "https://sslbl.abuse.ch/blacklist/sslipblacklist.csv"
+      update_interval_hours: 6
+      confidence: 0.90
+
+      # Additional free feeds you can enable
+      malware_domain_list:
+        enabled: false
+        url: "https://www.malwaredomainlist.com/hostslist/hosts.txt"
+        update_interval_hours: 12
+        confidence: 0.85
+
+      # Tor exit nodes (for context, not necessarily malicious)
+      tor_exit_nodes:
+        enabled: false
+        url: "https://check.torproject.org/torbulkexitlist"
+        update_interval_hours: 24
+        confidence: 0.60
+
+# Reputation Services Configuration
+reputation_services:
+  # VirusTotal (free tier: 4 requests/minute)
+  virustotal:
+    enabled: true
+    api_key: ""
+    rate_limit_per_minute: 4
+    timeout_seconds: 30
+
+  # AbuseIPDB (free tier: 1000 requests/day)
+  abuseipdb:
+    enabled: true
+    api_key: ""
+    rate_limit_per_minute: 100
+    timeout_seconds: 30
+
+# Data storage
+storage:
+  files:
+    raw_logs: "/var/lib/afretip/raw_logs.jsonl"
+    extracted_iocs: "/var/lib/afretip/extracted_iocs.jsonl"
+    suspicious_findings: "/var/lib/afretip/suspicious_findings.jsonl"
+    threat_intelligence_db: "/var/lib/afretip/threat_intelligence.db"
+
+analytics:
+  enabled: true
+  session_name: "production"
+  output_dir: "/var/lib/afretip/analytics"
+  collection:
+    ioc_metrics: true
+    classification_metrics: true
+    detection_metrics: true
+    performance_metrics: true
+    deployment_metrics: true
+  export:
+    auto_export: true
+    format: "csv"
+    retention_days: 90
+  research_mode: false
+  detailed_logging: true
+
+  # Data storage
+  storage:
+    database_path: "/var/lib/afretip/research_data.db"
+    export_directory: "/var/lib/afretip/research_exports"
+
+  # Auto-export settings
+  auto_export:
+    enabled: true
+    interval_minutes: 60  # Export data every hour
+    formats: ["json", "csv"]  # Export formats
+
+  # Performance monitoring
+  performance_monitoring:
+    detailed_timing: true
+    memory_monitoring: true
+    queue_monitoring: true
+    error_tracking: true
+    hybrid_classification_timing: true
+
+# Automated Rule Deployment (disabled for safety)
+deployment:
+  enabled: true
+  filesystem:
+    rules_dir: "/var/ossec/etc/rules"
+    custom_rules_file: "afretip_threat_intel_rules.xml"
+    backup_existing: true
+    file_permissions: "0644"
+    owner: "wazuh"
+    group: "wazuh"
+  restart:
+    enabled: false
+    method: "signal"
+    signal_type: "SIGHUP"
+    wazuh_manager_pid_file: "/var/ossec/var/run/wazuh-manager.pid"
+    delay_after_deployment: 5
+  validation:
+    enabled: true
+    check_syntax: true
+    check_rule_conflicts: true
+    timeout: 30
+
+# Rule Generation Configuration
+rule_generation:
+  # Quality thresholds
+  minimum_confidence_for_rules: 0.65    # Only generate rules for high-confidence findings
+  minimum_iocs_for_batch_rules: 3       # Batch similar IOCs into single rules
+
+  # Rule complexity limits
+  max_iocs_per_rule: 10                 # Prevent overly complex rules
+  max_rules_per_finding: 3              # Limit rules generated per finding
+
+  # Rule categorization
+  use_threat_intelligence_context: true  # Include threat actor/campaign info in rules
+  include_confidence_in_description: true # Include confidence scores in rule descriptions
+
+  # Rule priority mapping (based on classification)
+  rule_priorities:
+    confirmed_malicious: 12              # Critical priority for known threats
+    reputation_confirmed_suspicious: 10  # High priority for reputation-confirmed
+    contextually_suspicious: 8          # Medium-high for behavioral detection
+    reputation_confirmed: 7             # Medium for reputation-only confirmation
+
+# SIEM Integration
+siem:
+  enabled: false
+  format: "json"
+  output_file: "/var/lib/afretip/siem_output.json"
+
+# Standards Compliance
+stix:
+  enabled: false  # Enable to generate STIX 2.1 formatted threat intelligence
+  version: "2.1"
+  output_file: "/var/lib/afretip/stix_output.json"
+  include_context: true          # Include behavioral context in STIX objects
+  include_reputation_data: true  # Include reputation service results
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "/var/log/afretip/threat_detection.log"
+  format: "json"
+
+  # Enhanced logging for hybrid detection
+  log_classification_decisions: true    # Log IOC classification decisions
+  log_reputation_checks: false         # Log reputation service calls (can be verbose)
+  log_threat_intelligence_updates: true # Log threat feed updates
+
+# Performance Monitoring
+monitoring:
+  stats_interval: 30
+
+  # Hybrid detection specific monitoring
+  track_classification_performance: true
+  track_reputation_service_latency: true
+  track_threat_intelligence_hit_rates: true
+
+  # Alerting thresholds
+  alerts:
+    high_error_rate_threshold: 0.1       # Alert if >10% classification errors
+    slow_classification_threshold: 5.0   # Alert if classification takes >5 seconds
+    reputation_service_failure_threshold: 0.5  # Alert if >50% reputation calls fail
+
+# Whitelist Configuration (Built-in, can be extended)
+whitelist:
+  enabled: false
+  # Additional custom domains (beyond built-in whitelist)
+  custom_domains:
+    - "internal-domain.com"
+    - "trusted-partner.com"
+
+  # Additional custom IPs
+  custom_ips:
+    - "10.0.0.0/8"      # Internal network
+    - "192.168.1.0/24"  # Specific subnet
+
+  # Custom processes (if you have specific trusted applications)
+  custom_processes:
+    - "custom-app.exe"
+    - "trusted-service.exe"
+
+# Performance Tuning
+performance:
+  # Threading and concurrency
+  max_concurrent_classifications: 5     # Limit concurrent IOC classifications
+  max_concurrent_reputation_checks: 2   # Limit concurrent reputation API calls
+
+  # Memory management
+  ioc_cache_cleanup_interval: 300       # Clean IOC cache every 5 minutes
+  reputation_cache_cleanup_interval: 1800  # Clean reputation cache every 30 minutes
+
+  # Batch processing
+  batch_reputation_checks: true         # Batch reputation checks for efficiency
+  batch_threat_intel_lookups: true      # Batch threat intelligence lookups
+
+# Development and Testing
+development:
+  enable_debug_logging: false           # Enable verbose debug logging
+  simulate_reputation_responses: false  # Use mock reputation responses for testing
+  bypass_rate_limiting: false          # Bypass API rate limiting for testing
+  test_mode: false                     # Enable test mode with synthetic data

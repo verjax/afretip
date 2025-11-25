@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-01-15T14:22:15.654Z",
+  "rule": {
+    "id": 18152,
+    "level": 10,
+    "description": "Windows - Process Creation",
+    "groups": ["windows", "process"]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "4688",
+      "channel": "Security",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "subjectUserSid": "S-1-5-18",
+      "subjectUserName": "SYSTEM",
+      "newProcessId": "0x1a2b",
+      "newProcessName": "C:\\Windows\\System32\\schtasks.exe",
+      "commandLine": "schtasks /create /tn \"RMM Beacon\" /tr \"powershell.exe -WindowStyle Hidden -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwBjAGgAZQBjAGsAaQBuAC4AeQBvAHUAcgBsAGEAYgAuAG4AZQB0AC8AaABlAGEAcgB0AGIAZQBhAHQAIgA=\" /sc minute /mo 5",
+      "parentProcessName": "C:\\ProgramData\\RMMClient\\rmmclient.exe"
+    }
+  },
+  "data": {
+    "command_line": "schtasks /create /tn \"RMM Beacon\" /tr \"powershell.exe -WindowStyle Hidden -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwBjAGgAZQBjAGsAaQBuAC4AeQBvAHUAcgBsAGEAYgAuAG4AZQB0AC8AaABlAGEAcgB0AGIAZQBhAHQAIgA=\" /sc minute /mo 5",
+    "process_name": "schtasks.exe",
+    "parent_process": "rmmclient.exe"
+  },
+  "location": "EventChannel",
+  "full_log": "2025 Jan 15 14:22:15 WIN-WORKSTATION01 Security: INFORMATION(4688): Microsoft-Windows-Security-Auditing: A new process has been created. Subject: Security ID: S-1-5-18, Account Name: SYSTEM, Process Information: New Process ID: 0x1a2b, New Process Name: C:\\Windows\\System32\\schtasks.exe, Command Line: schtasks /create /tn \"RMM Beacon\" /tr \"powershell.exe -WindowStyle Hidden -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwBjAGgAZQBjAGsAaQBuAC4AeQBvAHUAcgBsAGEAYgAuAG4AZQB0AC8AaABlAGEAcgB0AGIAZQBhAHQAIgA=\" /sc minute /mo 5"
+}

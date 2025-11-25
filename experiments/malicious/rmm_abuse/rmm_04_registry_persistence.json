@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-19T08:32:53.658251Z",
+  "rule": {
+    "id": 61612,
+    "level": 9,
+    "description": "Test log for rmm_04_registry_persistence",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "003",
+    "name": "WIN-LAPTOP01",
+    "ip": "192.168.1.150"
+  },
+  "win": {
+    "system": {
+      "eventID": "13",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-LAPTOP01"
+    },
+    "eventdata": {
+      "targetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\RMMClient",
+      "details": "C:\\ProgramData\\RMMClient\\rmmclient.exe -startup",
+      "eventType": "SetValue",
+      "image": "C:\\Windows\\System32\\reg.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for rmm_04_registry_persistence scenario"
+}

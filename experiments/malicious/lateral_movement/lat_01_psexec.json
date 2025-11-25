@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-19T05:15:53.658251Z",
+  "rule": {
+    "id": 18152,
+    "level": 10,
+    "description": "Test log for lat_01_psexec",
+    "groups": [
+      "test",
+      "windows"
+    ]
+  },
+  "agent": {
+    "id": "002",
+    "name": "WIN-SERVER01",
+    "ip": "192.168.1.10"
+  },
+  "win": {
+    "system": {
+      "eventID": "1",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-SERVER01"
+    },
+    "eventdata": {
+      "commandLine": "psexec.exe \\\\192.168.1.50 -u admin -p password cmd.exe",
+      "image": "C:\\tools\\psexec.exe",
+      "parentImage": "C:\\Windows\\System32\\cmd.exe"
+    }
+  },
+  "location": "EventChannel",
+  "full_log": "Test log entry for lat_01_psexec scenario"
+}

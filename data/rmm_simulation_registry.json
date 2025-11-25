@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-01-15T14:21:30.321Z",
+  "rule": {
+    "id": 61612,
+    "level": 9,
+    "description": "Sysmon - Registry Event",
+    "groups": ["sysmon", "registry"]
+  },
+  "agent": {
+    "id": "001",
+    "name": "WIN-WORKSTATION01",
+    "ip": "192.168.1.100"
+  },
+  "win": {
+    "system": {
+      "eventID": "13",
+      "channel": "Microsoft-Windows-Sysmon/Operational",
+      "computer": "WIN-WORKSTATION01"
+    },
+    "eventdata": {
+      "processId": "1234",
+      "processGuid": "{12345678-1234-5678-9abc-098765432109}",
+      "image": "C:\\Windows\\System32\\reg.exe",
+      "targetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\RMMClient",
+      "details": "C:\\ProgramData\\RMMClient\\rmmclient.exe -startup",
+      "eventType": "SetValue"
+    }
+  },
+  "data": {
+    "registry_path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\RMMClient",
+    "registry_value": "C:\\ProgramData\\RMMClient\\rmmclient.exe -startup",
+    "process_name": "reg.exe"
+  },
+  "location": "EventChannel",
+  "full_log": "2025 Jan 15 14:21:30 WIN-WORKSTATION01 Microsoft-Windows-Sysmon/Operational: INFORMATION(13): Microsoft-Windows-Sysmon: Registry Event: ProcessId: 1234, Image: C:\\Windows\\System32\\reg.exe, TargetObject: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\RMMClient, Details: C:\\ProgramData\\RMMClient\\rmmclient.exe -startup, EventType: SetValue"
+}

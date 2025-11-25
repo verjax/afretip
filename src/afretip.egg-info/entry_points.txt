@@ -1,0 +1,2 @@
+[console_scripts]
+threat-intel = threat_intel.cli:main
